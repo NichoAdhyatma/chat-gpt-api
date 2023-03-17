@@ -1,8 +1,7 @@
 import 'package:chat_gpt/constants/constant.dart';
-import 'package:chat_gpt/services/asset-service.dart';
+import 'package:chat_gpt/services/asset_service.dart';
+import 'package:chat_gpt/widgets/chat_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -51,9 +50,11 @@ class _ChatScreenState extends State<ChatScreen> {
               child: ListView.builder(
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return Text(
-                    "$index",
-                    style: const TextStyle(color: Colors.white),
+                  return ChatWidget(
+                    text: chatMessages[index]["msg"].toString(),
+                    index: int.parse(
+                      chatMessages[index]["chatIndex"].toString(),
+                    ),
                   );
                 },
               ),
