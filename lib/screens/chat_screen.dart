@@ -1,5 +1,6 @@
 import 'package:chat_gpt/constants/constant.dart';
 import 'package:chat_gpt/services/asset_service.dart';
+import 'package:chat_gpt/services/services.dart';
 import 'package:chat_gpt/widgets/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -35,7 +36,9 @@ class _ChatScreenState extends State<ChatScreen> {
         title: const Text("Chat GPT Demo"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await Services.showBottomModal(context);
+            },
             icon: const Icon(
               Icons.more_vert_rounded,
               color: Colors.white,
