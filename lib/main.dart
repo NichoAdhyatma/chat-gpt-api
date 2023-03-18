@@ -2,9 +2,13 @@ import 'package:chat_gpt/constants/constant.dart';
 import 'package:chat_gpt/providers/models_provider.dart';
 import 'package:chat_gpt/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(const GptChat());
+void main() async {
+  await dotenv.load(fileName: ".env");
+  runApp(const GptChat());
+}
 
 class GptChat extends StatelessWidget {
   const GptChat({super.key});
