@@ -1,7 +1,9 @@
 import 'package:chat_gpt/constants/constant.dart';
 import 'package:chat_gpt/models/models.dart';
+import 'package:chat_gpt/providers/models_provider.dart';
 import 'package:chat_gpt/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DropdownWidget extends StatefulWidget {
   const DropdownWidget({super.key});
@@ -11,12 +13,14 @@ class DropdownWidget extends StatefulWidget {
 }
 
 class _DropdownWidgetState extends State<DropdownWidget> {
-  String currentModel = "text-davinci-003";
+  String? currentModel;
 
   @override
   Widget build(BuildContext context) {
+    var modelsProvider = Provider.of<ModelsProvider>(context, listen: false);
+    currentModel = modelsProvider.getCurrentModels;
     return FutureBuilder<List<Models>>(
-      future: ApiService.getModels(),
+      future: modelsProvider.getAllModels(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(
@@ -50,6 +54,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                     currentModel = value.toString();
                   },
                 );
+                modelsProvider.setCurrentModels(value.toString());
               },
             ),
           );
