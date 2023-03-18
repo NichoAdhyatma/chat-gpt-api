@@ -18,16 +18,17 @@ class Services {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
-            Flexible(
-              child: Text(
-                "Choose Model",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
-              ),
+            Text(
+              "Choose Model",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500),
             ),
-            Flexible(
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
               flex: 2,
               child: DropdownWidget(),
             ),
