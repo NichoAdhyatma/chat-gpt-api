@@ -31,7 +31,7 @@ class ChatWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 15,
                 ),
                 Flexible(
                   child: Text(
@@ -58,7 +58,7 @@ class ChatWidget extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ],
-                      )
+                      ),
               ],
             ),
           ),

@@ -1,7 +1,6 @@
 import 'package:chat_gpt/constants/constant.dart';
 import 'package:chat_gpt/models/models.dart';
 import 'package:chat_gpt/providers/models_provider.dart';
-import 'package:chat_gpt/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
