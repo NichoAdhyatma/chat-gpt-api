@@ -14,9 +14,17 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<void> addAiChat(String msg, String model) async {
-    chatList.addAll(
-      await ApiService.sendMessage(message: msg, modelId: model),
-    );
+    if (model.toLowerCase().startsWith("gpt")) {
+      chatList.addAll(await ApiService.sendMessage(
+        message: msg,
+        modelId: model,
+      ));
+    } else {
+      chatList.addAll(await ApiService.sendMessageFCT(
+        message: msg,
+        modelId: model,
+      ));
+    }
     notifyListeners();
   }
 }

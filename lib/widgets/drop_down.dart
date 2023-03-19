@@ -2,6 +2,7 @@ import 'package:chat_gpt/constants/constant.dart';
 import 'package:chat_gpt/models/models.dart';
 import 'package:chat_gpt/providers/models_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class DropdownWidget extends StatefulWidget {
@@ -13,6 +14,7 @@ class DropdownWidget extends StatefulWidget {
 
 class _DropdownWidgetState extends State<DropdownWidget> {
   String? currentModel;
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,15 @@ class _DropdownWidgetState extends State<DropdownWidget> {
     return FutureBuilder<List<Models>>(
       future: modelsProvider.getAllModels(),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting && isLoading) {
+          isLoading = false;
+          return const FittedBox(
+            child: SpinKitFadingCircle(
+              color: Colors.lightBlue,
+              size: 30,
+            ),
+          );
+        }
         if (snapshot.hasError) {
           return Center(
             child: Text("${snapshot.error}"),

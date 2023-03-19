@@ -22,13 +22,13 @@ class Services {
               "Choose Model",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500),
             ),
             SizedBox(
               width: 10,
             ),
-            Expanded(
+            Flexible(
               flex: 2,
               child: DropdownWidget(),
             ),
