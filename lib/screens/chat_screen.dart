@@ -34,31 +34,45 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> sendMessage(
       ModelsProvider modelProvider, ChatProvider chatProvider) async {
     var message = textEditingController.text;
-    setState(() {
-      isTyping = true;
+
+    if (!isTyping) {
       chatProvider.addUserChat(message);
-      textEditingController.clear();
-      canSend = false;
-      focusNode.unfocus();
-    });
-    try {
-      await chatProvider.addAiChat(message, modelProvider.getCurrentModels);
-      setState(() {});
-    } catch (err) {
+      setState(() {
+        textEditingController.clear();
+        isTyping = true;
+        canSend = false;
+        focusNode.unfocus();
+      });
+
+      try {
+        await chatProvider.addAiChat(message, modelProvider.getCurrentModels);
+        setState(() {});
+      } catch (err) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "$err",
+              style: const TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } finally {
+        setState(() {
+          scrollToEnd();
+          isTyping = false;
+        });
+      }
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
-            "$err",
-            style: const TextStyle(color: Colors.white),
+            "Cannot send multiple message at the same time",
+            style: TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
       );
-    } finally {
-      setState(() {
-        scrollToEnd();
-        isTyping = false;
-      });
     }
   }
 
